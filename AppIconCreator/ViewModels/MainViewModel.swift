@@ -12,6 +12,7 @@ class MainViewModel: ObservableObject {
     @Published var destinationPath = "click here to set destination"
     @Published var enableButton = false
     @Published var image: NSImage?
+    @Published var resultText = ""
     @Published var warningText = ""
     
     init() {
@@ -21,8 +22,26 @@ class MainViewModel: ObservableObject {
     }
     
     func createIcons() {
+        guard let destinationURL = destinationURL,
+              let originalImageURL = originalImageURL else {
+                  resultText = "Error while creating icons"
+                  return
+              }
         do {
-            
+            try IconCreator.createIcons(fromImageAtURL: originalImageURL,
+                                        destinationURL: destinationURL)
+        }
+        catch (IconCreatorError.loadImage) {
+            showResult("Error loading original image")
+        }
+        catch (IconCreatorError.resize) {
+            showResult("Error resizing images")
+        }
+        catch (IconCreatorError.save) {
+            showResult("Error saving icons")
+        }
+        catch (let error) {
+            showResult("Error \(error.localizedDescription)")
         }
     }
     
@@ -46,12 +65,21 @@ class MainViewModel: ObservableObject {
     
     // MARK: - Private
     
+    private var destinationURL: URL?
+    private var originalImageURL: URL?
+    
     private func checkImage(_ image: NSImage) -> Bool {
         !image.isSquare
     }
     
     private func destinationString(fromURL: URL) -> String {
         fromURL.absoluteString.replacingOccurrences(of: "file://", with: "")
+    }
+    
+    private func showResult(_ result: String) {
+        DispatchQueue.main.async {
+            self.resultText = result
+        }
     }
     
     private func showWarning(_ warning: String) {
