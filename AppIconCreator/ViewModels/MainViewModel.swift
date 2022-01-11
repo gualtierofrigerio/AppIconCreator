@@ -13,11 +13,17 @@ class MainViewModel: ObservableObject {
     @Published var enableButton = false
     @Published var image: NSImage?
     @Published var resultText = ""
+    @Published var showResultAlert = false
     @Published var warningText = ""
     
-    init() {
-        if let url = try? FileUtils.getUserDownloadsURL() {
-            destinationPath = url.absoluteString
+    func changeDestination() {
+        FileUtils.changeDestination { url in
+            if let url = url {
+                self.destinationURL = url
+                DispatchQueue.main.async {
+                    self.destinationPath = self.destinationString(fromURL: url)
+                }
+            }
         }
     }
     
@@ -30,6 +36,7 @@ class MainViewModel: ObservableObject {
         do {
             try IconCreator.createIcons(fromImageAtURL: originalImageURL,
                                         destinationURL: destinationURL)
+            showResult("Icons created!")
         }
         catch (IconCreatorError.loadImage) {
             showResult("Error loading original image")
@@ -52,6 +59,7 @@ class MainViewModel: ObservableObject {
                 return
             }
         if checkImage(nsImage) {
+            originalImageURL = url
             DispatchQueue.main.async {
                 self.warningText = ""
                 self.image = nsImage
@@ -69,7 +77,7 @@ class MainViewModel: ObservableObject {
     private var originalImageURL: URL?
     
     private func checkImage(_ image: NSImage) -> Bool {
-        !image.isSquare
+        image.isSquare
     }
     
     private func destinationString(fromURL: URL) -> String {
@@ -78,6 +86,7 @@ class MainViewModel: ObservableObject {
     
     private func showResult(_ result: String) {
         DispatchQueue.main.async {
+            self.showResultAlert = true
             self.resultText = result
         }
     }
