@@ -32,7 +32,7 @@ class IconCreator {
         var url: URL
         for icon in icons {
             url = destinationURL
-            url.appendPathComponent(icon.suffix)
+            url.appendPathComponent(prefix + icon.suffix)
             url.appendPathExtension("png")
             guard let resizedImage = ImageUtils.resizeImage(originalImage, size: icon.size) else {
                 throw IconCreatorError.resize
