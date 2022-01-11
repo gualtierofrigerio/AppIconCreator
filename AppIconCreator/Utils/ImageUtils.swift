@@ -5,6 +5,7 @@
 //  Created by Gualtiero Frigerio on 09/01/22.
 //
 
+import AppKit
 import CoreGraphics
 import Foundation
 import ImageIO
@@ -32,14 +33,18 @@ class ImageUtils {
     ///   - size: The image size
     /// - Returns: A CGImage of the given size if the conversion was successful
     class func resizeImage(_ image: CGImage, size: CGSize) -> CGImage? {
+        guard let space = image.colorSpace ?? CGColorSpace(name: CGColorSpace.sRGB) else { return nil }
+        let bitmapInfo: UInt32 = 5 // noneSkipLast
         let context = CGContext(data: nil,
                                 width: Int(size.width),
                                 height: Int(size.height),
                                 bitsPerComponent: image.bitsPerComponent,
                                 bytesPerRow: image.bytesPerRow,
-                                space: image.colorSpace ?? CGColorSpace(name: CGColorSpace.sRGB)!,
-                                bitmapInfo: image.bitmapInfo.rawValue)
+                                space: space,
+                                bitmapInfo: bitmapInfo)
         context?.interpolationQuality = .high
+        context?.setFillColor(NSColor.white.cgColor)
+        context?.fill(CGRect(origin: .zero, size: size))
         context?.draw(image, in: CGRect(origin: .zero, size: size))
         let resizedImage = context?.makeImage()
         return resizedImage
@@ -50,9 +55,9 @@ class ImageUtils {
     ///   - image: The CGImage to save
     ///   - toUrl: URL of the PNG file
     /// - Returns: True if the image was saved, false in case of error
-    class func savePNGImage(image:CGImage, toUrl:URL) -> Bool {
+    class func savePNGImage(image:CGImage, toUrl: URL) -> Bool {
         guard let destination = CGImageDestinationCreateWithURL(toUrl as CFURL,
-                                                                UTType.png as! CFString,
+                                                                UTType.png.identifier as CFString,
                                                                 1,
                                                                 nil) else { return false }
         CGImageDestinationAddImage(destination, image, nil)
