@@ -25,21 +25,37 @@ struct MainView: View {
                 .onDrop(of: ["public.file-url"], delegate: self)
             Group {
                 Spacer()
-                Text(viewModel.destinationPath)
+                destinationArea
                 Spacer()
-                Button {
-                    viewModel.createIcons()
-                } label: {
-                    Text("Create Icons")
-                }
-                .disabled(!viewModel.enableButton)
+                createButton
                 Spacer()
+            }
+            .alert(isPresented: $viewModel.showResultAlert) {
+                Alert(title: Text(viewModel.resultText))
             }
         }
         .frame(minWidth: 300,
                maxWidth: .infinity,
                minHeight: 300,
                maxHeight: .infinity)
+    }
+    
+    @ViewBuilder private var createButton: some View {
+        Button {
+            viewModel.createIcons()
+        } label: {
+            Text("Create Icons")
+        }
+        .disabled(!viewModel.enableButton)
+    }
+    
+    @ViewBuilder private var destinationArea: some View {
+        Text("Destination")
+        Button {
+            viewModel.changeDestination()
+        } label: {
+            Text(viewModel.destinationPath)
+        }.buttonStyle(PlainButtonStyle())
     }
     
     private var dragArea: some View {
