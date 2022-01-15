@@ -38,15 +38,6 @@ class MainViewModel: ObservableObject {
                                         destinationURL: destinationURL)
             showResult("Icons created!")
         }
-        catch (IconCreatorError.loadImage) {
-            showResult("Error loading original image")
-        }
-        catch (IconCreatorError.resize) {
-            showResult("Error resizing images")
-        }
-        catch (IconCreatorError.save) {
-            showResult("Error saving icons")
-        }
         catch (let error) {
             showResult("Error \(error.localizedDescription)")
         }
@@ -55,7 +46,7 @@ class MainViewModel: ObservableObject {
     func setImage(atURL url: URL) {
         guard let data = try? Data(contentsOf: url),
             let nsImage = NSImage(data: data) else {
-                showWarning("Cannot load image from the file you dropped")
+                showWarning(Warnings.cannotLoadImage.rawValue)
                 return
             }
         if checkImage(nsImage) {
@@ -67,7 +58,7 @@ class MainViewModel: ObservableObject {
             }
         }
         else {
-            showWarning("The image is in an invalid format")
+            showWarning(Warnings.imageInvalidFormat.rawValue)
         }
     }
     
