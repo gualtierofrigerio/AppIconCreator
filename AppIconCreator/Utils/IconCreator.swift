@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum IconCreatorError: Error {
-    case loadImage
-    case resize
-    case save
-}
-
 class IconCreator {
     class func createIcons(fromImageAtURL imageURL: URL,
                            destinationURL: URL) throws {
