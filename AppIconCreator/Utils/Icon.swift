@@ -36,7 +36,7 @@ extension Icon {
     }
     
     static func suffix(fromSize size: CGSize, scale: String) -> String {
-        "-" + size.toString() + scale
+        "-" + size.toString() + "@" + scale
     }
     
     func toDictionary(prefix: String) -> [String: String] {
