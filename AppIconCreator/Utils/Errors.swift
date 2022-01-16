@@ -11,6 +11,7 @@ enum IconCreatorError: Error {
     case loadImage
     case resize
     case save
+    case writeJSON
 }
 
 extension IconCreatorError: LocalizedError {
@@ -22,6 +23,8 @@ extension IconCreatorError: LocalizedError {
             return NSLocalizedString("Error resizing images", comment: "")
         case .save:
             return NSLocalizedString("Error saving icons", comment: "")
+        case .writeJSON:
+            return NSLocalizedString("Error writing Contents.json", comment: "")
         }
     }
 }
