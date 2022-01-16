@@ -17,6 +17,14 @@ extension CGSize {
     }
     
     func toString() -> String {
-        "\(width)x\(height)"
+        var widthStr = "\(width)"
+        if width.truncatingRemainder(dividingBy: 1.0) == 0 {
+            widthStr = "\(Int(width))"
+        }
+        var heightStr = "\(height)"
+        if height.truncatingRemainder(dividingBy: 1.0) == 0 {
+            heightStr = "\(Int(height))"
+        }
+        return widthStr + "x" + heightStr
     }
 }
