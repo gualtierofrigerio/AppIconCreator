@@ -13,7 +13,8 @@ class IconCreator {
         guard let cgImage = ImageUtils.loadCGImage(fromUrl: imageURL) else {
             throw IconCreatorError.loadImage
         }
-        try createIcons(defaultIconConfiguration,
+        let icons = Configuration.loadIcons()
+        try createIcons(icons,
                     fromImage: cgImage,
                     prefix: "AppIcon",
                     destinationURL: destinationURL)
@@ -36,5 +37,24 @@ class IconCreator {
                 throw IconCreatorError.save
             }
         }
+        url = destinationURL
+        url.appendPathComponent("Contents")
+        url.appendPathExtension("json")
+        do {
+            try writeContents(forIcons: icons, atURL: url, prefix: prefix)
+        }
+        catch {
+            throw IconCreatorError.save
+        }
+    }
+    
+    class func writeContents(forIcons icons: [Icon],
+                             atURL url: URL,
+                             prefix: String) throws {
+        let iconsArray: [[String: String]] = icons.map {
+            $0.toDictionary(prefix: prefix)
+        }
+        let data = try JSONSerialization.data(withJSONObject: iconsArray, options: .prettyPrinted)
+        try data.write(to: url)
     }
 }
