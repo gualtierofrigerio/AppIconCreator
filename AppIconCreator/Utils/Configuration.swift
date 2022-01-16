@@ -16,6 +16,41 @@ struct Icon {
     var suffix: String
 }
 
+extension Icon {
+    static func loadFromDictionary(_ dictionary: [String: String]) -> Self? {
+        guard let idiomStr = dictionary["idiom"],
+              let scaleStr = dictionary["scale"],
+              let sizeStr = dictionary["size"] else { return nil }
+        let components = sizeStr.components(separatedBy: "x")
+        guard components.count == 2,
+              let width = Float(components[0]),
+              let height = Float(components[1]) else { return nil }
+        var suffixStr: String
+        if let str = dictionary["suffix"] {
+            suffixStr = str
+        }
+        else {
+            suffixStr = "-" + scaleStr + sizeStr
+        }
+        return Icon(idiom: idiomStr,
+                    scale: scaleStr,
+                    size: CGSize(width: CGFloat(width), height: CGFloat(height)),
+                    suffix: suffixStr)
+    }
+}
+
+class Configuration {
+    class func loadConfigurationFromArray(_ array: [[String: String]]) -> [Icon] {
+        var icons: [Icon] = []
+        for dictionary in array {
+            if let icon = Icon.loadFromDictionary(dictionary) {
+                icons.append(icon)
+            }
+        }
+        return icons
+    }
+}
+
 let defaultIconConfiguration: [Icon] = [
     Icon(idiom: "ipad",   scale: "1x", size: CGSize(width: 20, height: 20), suffix: "-20x20@1x"),
     Icon(idiom: "iphone", scale: "2x", size: CGSize(width: 40, height: 40), suffix: "-20x20@2x"),
