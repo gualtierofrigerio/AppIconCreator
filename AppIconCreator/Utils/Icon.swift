@@ -20,12 +20,8 @@ extension Icon {
     static func loadFromDictionary(_ dictionary: [String: String]) -> Self? {
         guard let idiomStr = dictionary["idiom"],
               let scaleStr = dictionary["scale"],
-              let sizeStr = dictionary["size"] else { return nil }
-        let components = sizeStr.components(separatedBy: "x")
-        guard components.count == 2,
-              let width = Float(components[0]),
-              let height = Float(components[1]) else { return nil }
-        let size = CGSize(width: CGFloat(width), height: CGFloat(height))
+              let sizeStr = dictionary["size"],
+              let size = CGSize.fromString(sizeStr) else { return nil }
         var suffixStr: String
         if let str = dictionary["suffix"] {
             suffixStr = str
