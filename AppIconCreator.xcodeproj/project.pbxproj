@@ -14,6 +14,7 @@
 		258F298A278B3208009A7DA0 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F2989278B3208009A7DA0 /* Configuration.swift */; };
 		258F298C278B3A86009A7DA0 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258F298B278B3A86009A7DA0 /* FileUtils.swift */; };
 		25AF3994278DE312004546F7 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF3993278DE312004546F7 /* Errors.swift */; };
+		25AF9A7527941C0200C3CFFF /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF9A7427941C0200C3CFFF /* Icon.swift */; };
 		25D7A6662789F8B8009A2005 /* AppIconCreatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D7A6652789F8B8009A2005 /* AppIconCreatorApp.swift */; };
 		25D7A6682789F8B8009A2005 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D7A6672789F8B8009A2005 /* MainView.swift */; };
 		25D7A66A2789F8BA009A2005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D7A6692789F8BA009A2005 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		258F2989278B3208009A7DA0 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		258F298B278B3A86009A7DA0 /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
 		25AF3993278DE312004546F7 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		25AF9A7427941C0200C3CFFF /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		25D7A6622789F8B8009A2005 /* AppIconCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppIconCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D7A6652789F8B8009A2005 /* AppIconCreatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconCreatorApp.swift; sourceTree = "<group>"; };
 		25D7A6672789F8B8009A2005 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				25D7A679278A06EA009A2005 /* DropUtils.swift */,
 				25AF3993278DE312004546F7 /* Errors.swift */,
 				258F298B278B3A86009A7DA0 /* FileUtils.swift */,
+				25AF9A7427941C0200C3CFFF /* Icon.swift */,
 				258F2987278B1FFA009A7DA0 /* IconCreator.swift */,
 				258F2983278B1A9B009A7DA0 /* ImageUtils.swift */,
 				258F2985278B1B08009A7DA0 /* NSImage+ext.swift */,
@@ -200,6 +203,7 @@
 				258F298A278B3208009A7DA0 /* Configuration.swift in Sources */,
 				25D7A67A278A06EA009A2005 /* DropUtils.swift in Sources */,
 				25D7A6662789F8B8009A2005 /* AppIconCreatorApp.swift in Sources */,
+				25AF9A7527941C0200C3CFFF /* Icon.swift in Sources */,
 				25AF3994278DE312004546F7 /* Errors.swift in Sources */,
 				258F2988278B1FFA009A7DA0 /* IconCreator.swift in Sources */,
 				258F2984278B1A9B009A7DA0 /* ImageUtils.swift in Sources */,
