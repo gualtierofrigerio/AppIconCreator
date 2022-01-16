@@ -25,16 +25,30 @@ extension Icon {
         guard components.count == 2,
               let width = Float(components[0]),
               let height = Float(components[1]) else { return nil }
+        let size = CGSize(width: CGFloat(width), height: CGFloat(height))
         var suffixStr: String
         if let str = dictionary["suffix"] {
             suffixStr = str
         }
         else {
-            suffixStr = "-" + scaleStr + sizeStr
+            suffixStr = suffix(fromSize: size, scale: scaleStr)
         }
         return Icon(idiom: idiomStr,
                     scale: scaleStr,
-                    size: CGSize(width: CGFloat(width), height: CGFloat(height)),
+                    size: size ,
                     suffix: suffixStr)
+    }
+    
+    static func suffix(fromSize size: CGSize, scale: String) -> String {
+        "-" + size.toString() + scale
+    }
+    
+    func toDictionary(prefix: String) -> [String: String] {
+        var dictionary: [String: String] = [:]
+        dictionary["idiom"] = idiom
+        dictionary["scale"] = scale
+        dictionary["size"] = size.toString()
+        dictionary["filename"] = prefix + Icon.suffix(fromSize: size, scale: scale) + ".png"
+        return dictionary
     }
 }
